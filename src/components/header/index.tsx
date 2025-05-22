@@ -1,92 +1,89 @@
-'use client';
+"use client";
 
-import { logout } from '@/features/auth/authService';
-import { removeToken } from '@/features/auth/authSlice';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Dropdown, Layout, Menu } from 'antd';
-import { useRouter } from 'next/navigation';
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import {
+  FileZipOutlined,
+  LogoutOutlined,
+  ProductOutlined,
+  ShopOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Avatar, Dropdown, Menu, MenuProps } from "antd";
+import { usePathname, useRouter } from "next/navigation";
 
-const { Header: AntHeader } = Layout;
-
-
+type MenuItem = Required<MenuProps>["items"][number];
 
 export default function Header() {
-    const dispatch = useAppDispatch();
-    const { username } = useAppSelector((state) => state.auth.user) || {};
-    const { token } = useAppSelector((state) => state.auth);
-    const router = useRouter();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
 
-    const handleLoginClick = () => router.push('/login');
-    const handleRegisteClick = () => router.push('/register');
-    const handleHomeClick = () => router.push('/');
-    const handleDashboardClick = () => router.push('/dashboard');
+  const selectedKey = (() => {
+    if (pathname.startsWith("/products")) return "product";
+    if (pathname.startsWith("/shops")) return "shop";
+    if (pathname.startsWith("/orders")) return "order";
+    return ""; 
+  })();
+  const handleHomeClick = () => router.push("/");
+  const handleManagementRoute = (route: string) => router.push(route);
 
-    const handleLogout = () => {
-        logout();
-        dispatch(removeToken())
-        router.push('/login');
-    };
+  const dropdownMenu = [
+    {
+      key: "profile",
+      label: "Profile",
+      icon: <UserOutlined />,
+    },
+    {
+      key: "logout",
+      label: "Logout",
+      icon: <LogoutOutlined />,
+    },
+  ];
 
-    const dropdownMenu = (
+  const items: MenuItem[] = [
+    {
+      label: "Products",
+      key: "product",
+      onClick: () => handleManagementRoute("products"),
+      icon: <ProductOutlined />,
+    },
+    {
+      label: "Shops",
+      key: "shop",
+      onClick: () => handleManagementRoute("shops"),
+      icon: <ShopOutlined />,
+    },
+    {
+      label: "Orders",
+      key: "order",
+      onClick: () => handleManagementRoute("orders"),
+      icon: <FileZipOutlined />,
+    },
+  ];
+
+  return (
+    <div className="bg-orange-500 px-6">
+      <div className="flex items-center justify-between h-full">
+        <div
+          className="text-xl font-bold cursor-pointer"
+          onClick={handleHomeClick}
+        >
+          SELLNITY
+        </div>
         <Menu
-            items={[
-                {
-                    key: 'profile',
-                    label: 'Profile',
-                    icon: <UserOutlined />,
-                    onClick: () => router.push('/profile'),
-                },
-                {
-                    key: 'logout',
-                    icon: <LogoutOutlined />,
-                    label: 'Logout',
-                    onClick: handleLogout,
-                },
-            ]}
+          style={{ backgroundColor: "transparent" }}
+          className="w-1/2 bg-transparent"
+          mode="horizontal"
+          items={items}
+          selectedKeys={[selectedKey]}    
         />
-    );
-    return (
-        <AntHeader>
-            <div className="flex items-center justify-between h-full">
-                <div className="text-xl font-bold cursor-pointer" onClick={handleHomeClick}>
-                    My App
-                </div>
-                <Menu
-                    mode="horizontal"
-                    items={[
-                        { key: 'dashboard', label: 'Dashboard' , onClick: handleDashboardClick},
-                        { key: 'about', label: 'About' },
-                        { key: 'contact', label: 'Contact' },
-                    ]}
-                />
-                <div className="flex gap-2">
-                    {!token &&
-                        <>
-                            <Button type="primary" onClick={handleLoginClick}>
-                                Login
-                            </Button>
-                            <Button type="dashed" onClick={handleRegisteClick}>
-                                Sign In
-                            </Button>
-                        </>
-                    }
-                    {
-                        (token) && <Dropdown overlay={dropdownMenu} trigger={['click']}>
-                            <Avatar
-                                style={{
-                                    backgroundColor: '#fde3cf',
-                                    color: '#f56a00',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                {username?.[0]?.toUpperCase() || 'U'}
-                            </Avatar>
-                        </Dropdown>
-                    }
-                </div>
-            </div>
-        </AntHeader>
-    );
+        <div className="flex gap-2">
+          <Dropdown menu={{ items: dropdownMenu }} trigger={["click"]}>
+            <Avatar className="cursor-pointer">U</Avatar>
+          </Dropdown>
+        </div>
+      </div>
+    </div>
+  );
 }
