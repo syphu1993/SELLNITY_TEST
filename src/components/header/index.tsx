@@ -1,7 +1,6 @@
 "use client";
 
-import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { useAppSelector } from "@/hooks/useAppSelector";
+import { useRouter, usePathname } from "next/navigation";
 import {
   FileZipOutlined,
   LogoutOutlined,
@@ -10,74 +9,65 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Dropdown, Menu, MenuProps } from "antd";
-import { usePathname, useRouter } from "next/navigation";
+import React from "react";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
+const NAV_ITEMS = [
+  { key: "products", label: "Products", icon: <ProductOutlined /> },
+  { key: "shops", label: "Shops", icon: <ShopOutlined /> },
+  { key: "orders", label: "Orders", icon: <FileZipOutlined /> },
+];
+
 export default function Header() {
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
 
   const selectedKey = (() => {
-    if (pathname.startsWith("/products")) return "product";
-    if (pathname.startsWith("/shops")) return "shop";
-    if (pathname.startsWith("/orders")) return "order";
-    return ""; 
+    if (pathname.startsWith("/products")) return "products";
+    if (pathname.startsWith("/shops")) return "shops";
+    if (pathname.startsWith("/orders")) return "orders";
+    return "";
   })();
-  const handleHomeClick = () => router.push("/");
-  const handleManagementRoute = (route: string) => router.push(route);
+
+  const handleManagementRoute = (route: string) => {
+    router.push(`/${route}`);
+  };
 
   const dropdownMenu = [
-    {
-      key: "profile",
-      label: "Profile",
-      icon: <UserOutlined />,
-    },
-    {
-      key: "logout",
-      label: "Logout",
-      icon: <LogoutOutlined />,
-    },
+    { key: "profile", label: "Profile", icon: <UserOutlined /> },
+    { key: "logout", label: "Logout", icon: <LogoutOutlined /> },
   ];
 
-  const items: MenuItem[] = [
-    {
-      label: "Products",
-      key: "product",
-      onClick: () => handleManagementRoute("products"),
-      icon: <ProductOutlined />,
-    },
-    {
-      label: "Shops",
-      key: "shop",
-      onClick: () => handleManagementRoute("shops"),
-      icon: <ShopOutlined />,
-    },
-    {
-      label: "Orders",
-      key: "order",
-      onClick: () => handleManagementRoute("orders"),
-      icon: <FileZipOutlined />,
-    },
-  ];
+  const items: MenuItem[] = NAV_ITEMS.map(({ key, label, icon }) => ({
+    key,
+    onClick: () => handleManagementRoute(key),
+    icon: React.cloneElement(icon as React.ReactElement, { style: { color: '#000' } }),
+    label: (
+      <span className={`text-black ${selectedKey === key ? "font-bold" : ""}`}>
+        {label}
+      </span>
+    ),
+  }));
 
   return (
     <div className="bg-orange-500 px-6">
       <div className="flex items-center justify-between h-full">
         <div
           className="text-xl font-bold cursor-pointer"
-          onClick={handleHomeClick}
+          onClick={() => router.push("/")}
         >
           SELLNITY
         </div>
+
         <Menu
           style={{ backgroundColor: "transparent" }}
-          className="w-1/2 bg-transparent"
+          className="w-1/2"
           mode="horizontal"
           items={items}
-          selectedKeys={[selectedKey]}    
+          selectedKeys={[selectedKey]}
         />
+
         <div className="flex gap-2">
           <Dropdown menu={{ items: dropdownMenu }} trigger={["click"]}>
             <Avatar className="cursor-pointer">U</Avatar>

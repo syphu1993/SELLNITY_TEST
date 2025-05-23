@@ -7,7 +7,14 @@ export default function AntdProvider({ children }: { children: ReactNode }) {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#000000',
+          colorPrimary: '#f97316',
+        },
+        components: {
+          Button: {
+            colorBgContainer: '#f97316',
+            colorText: '#ffffff',
+            colorBorder: '#f97316',
+          },
         },
       }}
     >

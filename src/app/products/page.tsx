@@ -1,27 +1,49 @@
 "use client";
 
-import { Card, Col, Row, Spin, Tabs } from "antd";
+import { Card, Col, Input, Row, Spin, Tabs } from "antd";
 import Image from "next/image";
 import { useAppSelector } from "@/hooks/useAppSelector";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import {
   fetchListCategories,
   fetchListProducts,
 } from "@/features/products/productThunks";
 import { truncateLabel } from "../../helps/truncateLabel";
-import { setSelectedCategory } from "@/features/products/productSlice";
+import { setSelectedCategory, setSelectedOpenKey } from "@/features/products/productSlice";
+import MenuCategory from "@/components/menu-categories";
+import { createMenuCategories } from "@/helps/createMenu";
+import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import React, { ReactNode } from 'react';
+import { selectIsLoading } from "@/hooks/productSelectors";
+import { DatePicker, Space } from 'antd';
+import ProductList from "@/components/products-list";
+import CategoryTabs from "@/components/tab-categories";
+
+const { Search } = Input;
 const { Meta } = Card;
 
+
+const { RangePicker } = DatePicker;
+export const iconMap: Record<string, ReactNode> = {
+  sub1: <MailOutlined />,
+  sub2: <AppstoreOutlined />,
+  sub4: <SettingOutlined />,
+};
 export default function ProductsManagement() {
   const dispatch = useAppDispatch();
-  const { products, categories, loading, selectedCategory } =
+
+  const { products, categories, selectedCategory, loadingCategories } =
     useAppSelector((state) => state.products) || [];
+
+  const isLoading = useAppSelector(selectIsLoading);
+
   const onChange = (key: string) => {
-    console.log(key);
+    dispatch(setSelectedOpenKey(key))
     dispatch(setSelectedCategory(key));
     dispatch(fetchListProducts(key));
   };
+
 
   useEffect(() => {
     dispatch(fetchListCategories());
@@ -31,140 +53,48 @@ export default function ProductsManagement() {
   useEffect(() => {
     console.log("producs", products);
     console.log("categories", categories);
+    const x = createMenuCategories(categories, iconMap);
+    console.log('xxxxxxxxxx', x);
+
   }, [products, categories]);
 
-  if (loading) {
-    return <Spin size="large" tip="Đang tải..." fullscreen />;
-  }
   return (
     <>
-      {!loading && categories.length > 1 && (
-        <div className="w-full flex justify-center mt-4">
-          <Tabs
-            activeKey={selectedCategory}
-            onChange={onChange}
-            type="card"
-            items={[
-              {
-                label: "All",
-                key: "all",
-              },
-              ...(categories?.map((item) => ({
-                label: truncateLabel(item.categoryName),
-                key: `${item.categoryId}`,
-              })) || []),
-            ]}
-          />
+      <div className="w-full flex flex-col px-20 md:px-32 lg:px-48">
+        <div className="w-full min-h[40] flex justify-center mt-4">
+          {
+           <CategoryTabs onChange={onChange} loading={loadingCategories} selectedCategory={selectedCategory} categories={categories} />
+          }
         </div>
-      )}
-      <div className="w-full flex justify-center py-4 px-20 md:px-48 lg:px-60">
-        <div className="flex w-full flex-wrap">
-          {products?.map((item, i) => (
-            <div className="md:w-1/4 sm:w-1/2 p-3" key={i}>
-              <Card
-                hoverable
-                className="w-full"
-                cover={
-                  <div className="relative w-full h-[320px] overflow-hidden">
-                    <Image
-                      src={item.productImages[0].imageUrl}
-                      alt="Banner"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                }
-              >
-                <Meta
-                  title={item.productNameEn}
-                  description={item.productsku}
-                />
-                <p>Price: {item.variants[0].price.sellPrice}$</p>
-              </Card>
-            </div>
-          ))}
-        </div>
-      </div>
+        <div className="w-full flex">
+          <div className="w-1/4 p-3">
+            <MenuCategory
+              items={createMenuCategories(categories, iconMap)}
+              selectedId={selectedCategory} onSelect={(key) => {
+                dispatch(setSelectedCategory(key));
+                dispatch(fetchListProducts(key));
+              }} />
+          </div>
+          <div className={`w-3/4 relative min-h-screen flex flex-col ${isLoading ? "items-center justify-center" : ""
+            }`}>
 
-      {/* <div className="flex justify-center items-center h-screen">
-        <div className="w-96 p-6 shadow-md rounded-lg border">
-          <h2 className="text-center text-xl mb-4">Dashboard 1</h2>
-          <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-          </Row>
+            {isLoading ? (
+              <Spin />
+            ) : (
+              <>
+                <div className="p-3 flex w-full gap-4">
+                  <Search placeholder="input search text" enterButton="Search" size="large" loading={isLoading} />
+                  <RangePicker />
+                </div>
+                <div className="flex w-full flex-wrap items-start">
+                  <ProductList products={products} />
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
 
-      <div className="flex justify-center items-center h-screen">
-        <div className="w-96 p-6 shadow-md rounded-lg border">
-          <h2 className="text-center text-xl mb-4">Dashboard 1</h2>
-          <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-          </Row>
-        </div>
       </div>
-
-      <div className="flex justify-center items-center h-screen">
-        <div className="w-96 p-6 shadow-md rounded-lg border">
-          <h2 className="text-center text-xl mb-4">Dashboard 1</h2>
-          <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-          </Row>
-        </div>
-      </div>
-
-      <div className="flex justify-center items-center h-screen">
-        <div className="w-96 p-6 shadow-md rounded-lg border">
-          <h2 className="text-center text-xl mb-4">Dashboard 1</h2>
-          <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterA} alt="Banner" width={800} height={400} />
-            </Col>
-            <Col xs={24} sm={12} md={6} lg={6}>
-              <Image src={posterB} alt="Banner" width={800} height={400} />
-            </Col>
-          </Row>
-        </div>
-      </div> */}
     </>
   );
 }

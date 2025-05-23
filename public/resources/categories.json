@@ -1,30 +1,149 @@
 [
     {
         "categoryId": "D2432903-0D4E-4787-886F-D3D9DA7890D9",
-        "categoryName": "Women's Clothing/Tops & Sets/Lady Dresses"
+        "categoryName": "Women's Clothing/Tops & Sets/Lady Dresses",
+        "childrent": [
+            {
+                "categoryId": "D2432903-0D4E-4787-886F-D3D9DA7890D9-1",
+                "categoryName": "Women's Clothing",
+                "childrent": []
+            },
+            {
+                "categoryId": "D2432903-0D4E-4787-886F-D3D9DA7890D9-2",
+                "categoryName": "Tops & Sets",
+                "childrent": []
+            },
+            {
+                "categoryId": "D2432903-0D4E-4787-886F-D3D9DA7890D9-3",
+                "categoryName": "Lady Dresses",
+                "childrent": []
+            }
+        ]
     },
     {
         "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B",
-        "categoryName": "Health, Beauty & Hair/Nail Art & Tools/Nail Decorations"
+        "categoryName": "Health, Beauty & Hair/Nail Art & Tools/Nail Decorations",
+        "childrent": [
+            {
+                "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B-1",
+                "categoryName": "Health, Beauty & Hair",
+                "childrent": []
+            },
+            {
+                "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B-2",
+                "categoryName": "Nail Art & Tools",
+                "childrent": []
+            },
+            {
+                "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B-3",
+                "categoryName": "Nail Decorations",
+                "childrent": []
+            }
+        ]
     },
     {
         "categoryId": "8E00C4BE-1E35-43E7-A891-6CAE58BB48CF",
-        "categoryName": "Health, Beauty & Hair/Beauty Tools/Massage & Relaxation"
+        "categoryName": "Health, Beauty & Hair/Beauty Tools/Massage & Relaxation",
+        "childrent": [
+            {
+                "categoryId": "8E00C4BE-1E35-43E7-A891-6CAE58BB48CF-1",
+                "categoryName": "Health, Beauty & Hair",
+                "childrent": []
+            },
+            {
+                "categoryId": "8E00C4BE-1E35-43E7-A891-6CAE58BB48CF-2",
+                "categoryName": "Beauty Tools",
+                "childrent": []
+            },
+            {
+                "categoryId": "8E00C4BE-1E35-43E7-A891-6CAE58BB48CF-3",
+                "categoryName": "Massage & Relaxatio",
+                "childrent": []
+            }
+        ]
     },
     {
         "categoryId": "0DC4DF6F-4EC5-47DF-B20D-863ADF69319F",
-        "categoryName": "Women's Clothing > Accessories > Scarves & Wraps"
+        "categoryName": "Women's Clothing > Accessories > Scarves & Wraps",
+        "childrent": [
+            {
+                "categoryId": "0DC4DF6F-4EC5-47DF-B20D-863ADF69319F-1",
+                "categoryName": "Women's Clothing",
+                "childrent": []
+            },
+            {
+                "categoryId": "0DC4DF6F-4EC5-47DF-B20D-863ADF69319F-2",
+                "categoryName": "Accessories",
+                "childrent": []
+            },
+            {
+                "categoryId": "0DC4DF6F-4EC5-47DF-B20D-863ADF69319F-3",
+                "categoryName": "Wraps",
+                "childrent": []
+            }
+        ]
     },
     {
         "categoryId": "3B8946E7-B608-4DAB-B2F0-C425B7875035",
-        "categoryName": "Women's Clothing/Bottoms/Skirts"
+        "categoryName": "Women's Clothing/Bottoms/Skirts",
+        "childrent": [
+            {
+                "categoryId": "3B8946E7-B608-4DAB-B2F0-C425B7875035-1",
+                "categoryName": "Women's Clothing",
+                "childrent": []
+            },
+            {
+                "categoryId": "3B8946E7-B608-4DAB-B2F0-C425B7875035-2",
+                "categoryName": "Bottoms",
+                "childrent": []
+            },
+            {
+                "categoryId": "3B8946E7-B608-4DAB-B2F0-C425B7875035-3",
+                "categoryName": "Skirts",
+                "childrent": []
+            }
+        ]
     },
     {
         "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E",
-        "categoryName": "Home Improvement > Tools > Power Tools"
+        "categoryName": "Home Improvement > Tools > Power Tools",
+        "childrent": [
+            {
+                "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E-1",
+                "categoryName": "Home Improvement",
+                "childrent": []
+            },
+            {
+                "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E-2",
+                "categoryName": "Tools",
+                "childrent": []
+            },
+            {
+                "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E-3",
+                "categoryName": "Power Tools",
+                "childrent": []
+            }
+        ]
     },
     {
         "categoryId": "5A3E7341-18B5-4C61-BFCD-8965B3479A9A",
-        "categoryName": "Women's Clothing/Tops & Sets/Blouses & Shirts"
+        "categoryName": "Women's Clothing/Tops & Sets/Blouses & Shirts",
+        "childrent": [
+            {
+                "categoryId": "5A3E7341-18B5-4C61-BFCD-8965B3479A9A-1",
+                "categoryName": "Women's Clothing",
+                "childrent": []
+            },
+            {
+                "categoryId": "5A3E7341-18B5-4C61-BFCD-8965B3479A9A-2",
+                "categoryName": "Tops & Sets",
+                "childrent": []
+            },
+            {
+                "categoryId": "5A3E7341-18B5-4C61-BFCD-8965B3479A9A-3",
+                "categoryName": "Shirts",
+                "childrent": []
+            }
+        ]
     }
 ]

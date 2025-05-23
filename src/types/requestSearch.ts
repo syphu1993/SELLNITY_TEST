@@ -1,4 +1,4 @@
-export interface RequestLogin {
+export interface RequestSearch {
     username: string;
     password: string;
     expiresInMins?: number;

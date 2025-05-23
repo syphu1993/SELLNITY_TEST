@@ -4,18 +4,22 @@ import { fetchListCategories, fetchListProducts } from './productThunks';
 interface ProductsState {
     products: any[];
     error?: string;
-    loading: boolean;
+    loadingProducts: boolean;
+    loadingCategories: boolean;
     categories: any[];
     selectedCategory: string;
+    openKeys: string;
 
 };
 
 const initialState: ProductsState = {
     products: [],
     error: '',
-    loading: false,
+    loadingProducts: false,
+    loadingCategories: false,
     categories: [],
-    selectedCategory: 'all'
+    selectedCategory: 'all',
+    openKeys: ''
 };
 
 const productsSlice = createSlice({
@@ -25,32 +29,35 @@ const productsSlice = createSlice({
         setSelectedCategory: (state, action) => {
             state.selectedCategory = action.payload;
         },
+        setSelectedOpenKey: (state, action) => {
+            state.openKeys = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchListProducts.pending, (state) => {
-                state.loading = true;
+                state.loadingProducts = true;
             })
             .addCase(fetchListProducts.fulfilled, (state, action) => {
                 state.products = action.payload;
-                state.loading = false;
+                state.loadingProducts = false;
             })
             .addCase(fetchListProducts.rejected, (state) => {
-                state.loading = false;
+                state.loadingProducts = false;
                 state.error = 'Something went wrong';
             })
             .addCase(fetchListCategories.pending, (state) => {
-                state.loading = true;
+                state.loadingCategories = true;
             })
             .addCase(fetchListCategories.fulfilled, (state, action) => {
                 state.categories = action.payload;
-                state.loading = false;
+                state.loadingCategories = false;
             })
             .addCase(fetchListCategories.rejected, (state) => {
-                state.loading = false;
+                state.loadingCategories = false;
                 state.error = 'Something went wrong';
             })
     },
 });
-export const { setSelectedCategory } = productsSlice.actions;
+export const { setSelectedCategory, setSelectedOpenKey } = productsSlice.actions;
 export default productsSlice.reducer;
