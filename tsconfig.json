@@ -27,7 +27,7 @@
       "@hooks/*": ["hooks/*"],
       "@styles/*": ["styles/*"],
       "@assets/*": ["assets/*"],
-      "@libs/*": ["libs/*"],
+      "@stores/*": ["stores/*"],
       "@types/*": ["types/*"]
     }
   },

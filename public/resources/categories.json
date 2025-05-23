@@ -23,23 +23,7 @@
     {
         "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B",
         "categoryName": "Health, Beauty & Hair/Nail Art & Tools/Nail Decorations",
-        "childrent": [
-            {
-                "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B-1",
-                "categoryName": "Health, Beauty & Hair",
-                "childrent": []
-            },
-            {
-                "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B-2",
-                "categoryName": "Nail Art & Tools",
-                "childrent": []
-            },
-            {
-                "categoryId": "26F7660F-A00A-468A-BA29-E61A465C0D0B-3",
-                "categoryName": "Nail Decorations",
-                "childrent": []
-            }
-        ]
+        "childrent": []
     },
     {
         "categoryId": "8E00C4BE-1E35-43E7-A891-6CAE58BB48CF",
@@ -107,23 +91,7 @@
     {
         "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E",
         "categoryName": "Home Improvement > Tools > Power Tools",
-        "childrent": [
-            {
-                "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E-1",
-                "categoryName": "Home Improvement",
-                "childrent": []
-            },
-            {
-                "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E-2",
-                "categoryName": "Tools",
-                "childrent": []
-            },
-            {
-                "categoryId": "9FC79C6B-AE70-472C-B8F8-D62479F0D03E-3",
-                "categoryName": "Power Tools",
-                "childrent": []
-            }
-        ]
+        "childrent": []
     },
     {
         "categoryId": "5A3E7341-18B5-4C61-BFCD-8965B3479A9A",

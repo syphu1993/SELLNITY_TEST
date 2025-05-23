@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Shop Công Nghệ",
+    "logo": "https://via.placeholder.com/40x40?text=SCN",
+    "platform": "Shopee",
+    "orders": 152,
+    "products": 320,
+    "connected": true
+  },
+  {
+    "id": 2,
+    "name": "Thời Trang ABC",
+    "logo": "https://via.placeholder.com/40x40?text=ABC",
+    "platform": "Lazada",
+    "orders": 97,
+    "products": 210,
+    "connected": true
+  },
+  {
+    "id": 3,
+    "name": "GreenStore",
+    "logo": "",
+    "platform": "Shopify",
+    "orders": 65,
+    "products": 125,
+    "connected": false
+  },
+  {
+    "id": 4,
+    "name": "Phụ Kiện Xinh",
+    "logo": "https://via.placeholder.com/40x40?text=PKX",
+    "platform": "Website cá nhân",
+    "orders": 38,
+    "products": 89,
+    "connected": true
+  },
+  {
+    "id": 5,
+    "name": "Kids World",
+    "logo": "",
+    "platform": "Shopee",
+    "orders": 210,
+    "products": 450,
+    "connected": false
+  },
+  {
+    "id": 6,
+    "name": "Trang Sức Q&K",
+    "logo": "https://via.placeholder.com/40x40?text=QK",
+    "platform": "Lazada",
+    "orders": 123,
+    "products": 199,
+    "connected": true
+  }
+]

@@ -10,13 +10,14 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Dropdown, Menu, MenuProps } from "antd";
 import React from "react";
+import { ORDERS, PRODUCTS, SHOPS } from "@/constants/constantRoute";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
 const NAV_ITEMS = [
-  { key: "products", label: "Products", icon: <ProductOutlined /> },
-  { key: "shops", label: "Shops", icon: <ShopOutlined /> },
-  { key: "orders", label: "Orders", icon: <FileZipOutlined /> },
+  { key: PRODUCTS, label: "Products", icon: <ProductOutlined /> },
+  { key: SHOPS, label: "Shops", icon: <ShopOutlined /> },
+  { key: ORDERS, label: "Orders", icon: <FileZipOutlined /> },
 ];
 
 export default function Header() {
@@ -24,9 +25,9 @@ export default function Header() {
   const pathname = usePathname();
 
   const selectedKey = (() => {
-    if (pathname.startsWith("/products")) return "products";
-    if (pathname.startsWith("/shops")) return "shops";
-    if (pathname.startsWith("/orders")) return "orders";
+    if (pathname.startsWith(`/${PRODUCTS}`)) return PRODUCTS;
+    if (pathname.startsWith(`/${SHOPS}`)) return SHOPS;
+    if (pathname.startsWith(`/${ORDERS}`)) return ORDERS;
     return "";
   })();
 
@@ -42,7 +43,9 @@ export default function Header() {
   const items: MenuItem[] = NAV_ITEMS.map(({ key, label, icon }) => ({
     key,
     onClick: () => handleManagementRoute(key),
-    icon: React.cloneElement(icon as React.ReactElement, { style: { color: '#000' } }),
+    icon: React.cloneElement(icon as React.ReactElement, {
+      style: { color: "#000" },
+    }),
     label: (
       <span className={`text-black ${selectedKey === key ? "font-bold" : ""}`}>
         {label}
@@ -62,7 +65,7 @@ export default function Header() {
 
         <Menu
           style={{ backgroundColor: "transparent" }}
-          className="w-1/2"
+          className="w-3/4"
           mode="horizontal"
           items={items}
           selectedKeys={[selectedKey]}

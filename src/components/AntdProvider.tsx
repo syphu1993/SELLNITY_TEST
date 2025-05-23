@@ -11,9 +11,10 @@ export default function AntdProvider({ children }: { children: ReactNode }) {
         },
         components: {
           Button: {
-            colorBgContainer: '#f97316',
-            colorText: '#ffffff',
-            colorBorder: '#f97316',
+            colorPrimary: '#f97316',
+            colorBgContainer: '#ffffff',
+            colorText: '#000000',
+            colorBorder: '#000000',
           },
         },
       }}

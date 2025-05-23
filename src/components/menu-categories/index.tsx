@@ -6,6 +6,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import type { MenuProps } from 'antd';
 import { Menu, Skeleton, Spin } from 'antd';
 import { useAppSelector } from '@/hooks/useAppSelector';
+import { RequestSearch } from '@/types/requestSearch';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -13,9 +14,10 @@ interface MenuCategoryProps {
     items: MenuItem[];
     selectedId: string;
     onSelect: (key: string) => void;
+    onSelectParent: () => void;
 }
 
-const MenuCategory: React.FC<MenuCategoryProps> = ({ items, selectedId, onSelect }) => {
+const MenuCategory: React.FC<MenuCategoryProps> = ({ items, selectedId, onSelect, onSelectParent }) => {
     const dispatch = useAppDispatch();
 
     const { openKeys, loadingCategories } = useAppSelector((state) => state.products) || '';
@@ -23,13 +25,15 @@ const MenuCategory: React.FC<MenuCategoryProps> = ({ items, selectedId, onSelect
     const onClick: MenuProps['onClick'] = (e) => {
         onSelect(e.key);
     };
+    let params: RequestSearch = {}
 
     const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
+        onSelectParent();
         const latestOpenKey = keys[keys.length - 1];
         dispatch(setSelectedOpenKey(latestOpenKey));
         if (latestOpenKey) {
             dispatch(setSelectedCategory(latestOpenKey));
-            dispatch(fetchListProducts(latestOpenKey));
+            dispatch(fetchListProducts({...params, categoryId: latestOpenKey}));
         }
     };
     if (loadingCategories) {

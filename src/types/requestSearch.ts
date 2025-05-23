@@ -1,5 +1,6 @@
 export interface RequestSearch {
-    username: string;
-    password: string;
-    expiresInMins?: number;
+    categoryId?: string;
+    name?: string;
+    startDate?: string;
+    endDate?: string;
 }

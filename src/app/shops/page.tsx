@@ -1,14 +1,27 @@
-import { Col, Row } from "antd";
-import Image from "next/image";
-import posterA from '@/assets/images/share-poster-1733971223947.jpg';
-import posterB from '@/assets/images/share-poster-1733971496344.jpg';
+"use client";
+import ContentContainer from "@/components/content-container";
+import DetailShop from "@/components/detail-shop";
+import { fetchListShops } from "@/features/shops/shopThunks";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { useEffect } from "react";
 
-export default function ShopsManagement() {
-    return (
-       <>
-        <div className="flex justify-center items-center h-screen">
-            SHOPS
-        </div>
-       </>
-    );
+export default function OrdersManagement() {
+  const dispatch = useAppDispatch();
+
+  const { shops, loading } = useAppSelector((state) => state.shops) || [];
+
+  useEffect(() => {
+    dispatch(fetchListShops());
+  }, [dispatch]);
+
+  return (
+    <ContentContainer>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+        {shops.map((shop: any, index) => (
+          <DetailShop key={index} shop={shop} loading={loading} />
+        ))}
+      </div>
+    </ContentContainer>
+  );
 }
